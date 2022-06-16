@@ -1,6 +1,9 @@
 package com.github.zzxt0019.modbus.client;
 
+import com.github.zzxt0019.codec.modbus.request.MaskWriteRegisterRequest;
 import com.github.zzxt0019.codec.modbus.request.ReadCoilsRequest;
+import com.github.zzxt0019.codec.modbus.request.ReadWriteMultipleRegistersRequest;
+import com.github.zzxt0019.modbus.client.handler.MaskWriteRegisterClientHandler;
 import com.github.zzxt0019.modbus.core.ModbusException;
 
 public class ClientDemo {
@@ -14,10 +17,12 @@ public class ClientDemo {
 
             Thread.sleep(100);
 //            client.sendSync(new WriteMultipleCoilsRequest(3, new boolean[]{true, false, true}));
-            client.sendAsync(new ReadCoilsRequest(100, 10)).thenAccept(System.out::println);
-            client.sendAsync(new ReadCoilsRequest(100, 10)).thenAccept(System.out::println);
-            client.sendAsync(new ReadCoilsRequest(100, 10)).thenAccept(System.out::println);
-            System.out.println(client.sendSync(new ReadCoilsRequest(100, 500)));
+//            client.sendAsync(new ReadCoilsRequest(100, 10)).thenAccept(System.out::println);
+//            client.sendAsync(new ReadCoilsRequest(100, 10)).thenAccept(System.out::println);
+//            client.sendAsync(new ReadCoilsRequest(100, 10)).thenAccept(System.out::println);
+//            System.out.println(client.sendSync(new ReadCoilsRequest(100, 500)));
+            System.out.println(client.sendSync(new ReadWriteMultipleRegistersRequest(1, 10, 10,
+                    new byte[]{0, 11, 0, 22, 0, 33, 0, 44, 0, 55, 0, 66, 0, 77, 0, 88, 0, 99,0,100})));
 //                .exceptionally(new Function<Throwable, Void>() {
 //                    @Override
 //                    public Void apply(Throwable throwable) {

@@ -7,10 +7,9 @@ import com.github.zzxt0019.modbus.core.ModbusException;
 import com.github.zzxt0019.netty.decoder.HeadLengthDecoder;
 import com.github.zzxt0019.netty.transfer.IntTransfer;
 import io.netty.bootstrap.Bootstrap;
-import io.netty.channel.Channel;
-import io.netty.channel.ChannelFuture;
-import io.netty.channel.ChannelFutureListener;
-import io.netty.channel.ChannelInitializer;
+import io.netty.buffer.ByteBuf;
+import io.netty.buffer.ByteBufUtil;
+import io.netty.channel.*;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.nio.NioSocketChannel;
 
@@ -42,6 +41,8 @@ public class Client {
         WriteSingleRegisterClientHandler writeSingleRegisterClientHandler = new WriteSingleRegisterClientHandler();
         WriteMultipleCoilsClientHandler writeMultipleCoilsClientHandler = new WriteMultipleCoilsClientHandler();
         WriteMultipleRegistersClientHandler writeMultipleRegistersClientHandler = new WriteMultipleRegistersClientHandler();
+        MaskWriteRegisterClientHandler maskWriteRegisterClientHandler = new MaskWriteRegisterClientHandler();
+        ReadWriteMultipleRegistersClientHandler readWriteMultipleRegistersClientHandler = new ReadWriteMultipleRegistersClientHandler();
         MessageExceptionClientHandler messageExceptionClientHandler = new MessageExceptionClientHandler();
         bootstrap
                 .group(group)
@@ -49,6 +50,16 @@ public class Client {
                 .handler(new ChannelInitializer<NioSocketChannel>() {
                     @Override
                     protected void initChannel(NioSocketChannel ch) throws Exception {
+                        ch.pipeline().addLast(new ChannelOutboundHandlerAdapter() {
+                            @Override
+                            public void write(ChannelHandlerContext ctx, Object msg, ChannelPromise promise) throws Exception {
+                                if (msg instanceof ByteBuf) {
+                                    System.out.println(ByteBufUtil.prettyHexDump((ByteBuf) msg));
+
+                                }
+                                super.write(ctx, msg, promise);
+                            }
+                        });
                         ch.pipeline().addLast(headLengthDecoder);
                         ch.pipeline().addLast(messageClientCodec);
                         ch.pipeline().addLast(readCoilsClientHandler);
@@ -59,6 +70,8 @@ public class Client {
                         ch.pipeline().addLast(writeSingleRegisterClientHandler);
                         ch.pipeline().addLast(writeMultipleCoilsClientHandler);
                         ch.pipeline().addLast(writeMultipleRegistersClientHandler);
+                        ch.pipeline().addLast(maskWriteRegisterClientHandler);
+                        ch.pipeline().addLast(readWriteMultipleRegistersClientHandler);
                         ch.pipeline().addLast(messageExceptionClientHandler);
                     }
                 });

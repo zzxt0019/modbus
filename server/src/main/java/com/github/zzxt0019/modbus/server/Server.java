@@ -1,10 +1,7 @@
 package com.github.zzxt0019.modbus.server;
 
 import com.github.zzxt0019.codec.modbus.request.*;
-import com.github.zzxt0019.codec.modbus.response.ReadCoilsResponse;
-import com.github.zzxt0019.codec.modbus.response.ReadDiscreteInputsResponse;
-import com.github.zzxt0019.codec.modbus.response.ReadHoldingRegistersResponse;
-import com.github.zzxt0019.codec.modbus.response.ReadInputRegistersResponse;
+import com.github.zzxt0019.codec.modbus.response.*;
 import com.github.zzxt0019.modbus.core.ModbusConsumer;
 import com.github.zzxt0019.modbus.core.ModbusFunction;
 import com.github.zzxt0019.modbus.server.handler.*;
@@ -30,6 +27,8 @@ public class Server {
     private final WriteSingleRegisterServerHandler writeSingleRegisterServerHandler;
     private final WriteMultipleCoilsServerHandler writeMultipleCoilsServerHandler;
     private final WriteMultipleRegistersServerHandler writeMultipleRegistersServerHandler;
+    private final MaskWriteRegisterServerHandler maskWriteRegisterServerHandler;
+    private final ReadWriteMultipleRegistersServerHandler readWriteMultipleRegistersServerHandler;
 
     Server(
             int port,
@@ -40,8 +39,9 @@ public class Server {
             ModbusConsumer<WriteSingleCoilRequest> writeSingleCoilConsumer,
             ModbusConsumer<WriteSingleRegisterRequest> writeSingleRegisterConsumer,
             ModbusConsumer<WriteMultipleCoilsRequest> writeMultipleCoilsConsumer,
-            ModbusConsumer<WriteMultipleRegistersRequest> writeMultipleRegistersConsumer
-
+            ModbusConsumer<WriteMultipleRegistersRequest> writeMultipleRegistersConsumer,
+            ModbusConsumer<MaskWriteRegisterRequest> maskWriteRegisterRequestConsumer,
+            ModbusFunction<ReadWriteMultipleRegistersRequest, ReadWriteMultipleRegistersResponse> readWriteMultipleFunction
     ) {
         this.port = port;
         headLengthDecoder = HeadLengthDecoder.builder(new Byte[]{null, null, 0, 0}, IntTransfer.buildDefault16()).build();
@@ -55,6 +55,8 @@ public class Server {
         writeSingleRegisterServerHandler = new WriteSingleRegisterServerHandler(writeSingleRegisterConsumer);
         writeMultipleCoilsServerHandler = new WriteMultipleCoilsServerHandler(writeMultipleCoilsConsumer);
         writeMultipleRegistersServerHandler = new WriteMultipleRegistersServerHandler(writeMultipleRegistersConsumer);
+        maskWriteRegisterServerHandler = new MaskWriteRegisterServerHandler(maskWriteRegisterRequestConsumer);
+        readWriteMultipleRegistersServerHandler = new ReadWriteMultipleRegistersServerHandler(readWriteMultipleFunction);
     }
 
     public void init() {
@@ -80,6 +82,8 @@ public class Server {
                             ch.pipeline().addLast(writeSingleRegisterServerHandler);
                             ch.pipeline().addLast(writeMultipleCoilsServerHandler);
                             ch.pipeline().addLast(writeMultipleRegistersServerHandler);
+                            ch.pipeline().addLast(maskWriteRegisterServerHandler);
+                            ch.pipeline().addLast(readWriteMultipleRegistersServerHandler);
                         }
                     });
             ChannelFuture f = b.bind(this.port).sync();

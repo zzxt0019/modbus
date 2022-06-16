@@ -2,10 +2,7 @@ package com.github.zzxt0019.modbus.server;
 
 
 import com.github.zzxt0019.codec.modbus.request.*;
-import com.github.zzxt0019.codec.modbus.response.ReadCoilsResponse;
-import com.github.zzxt0019.codec.modbus.response.ReadDiscreteInputsResponse;
-import com.github.zzxt0019.codec.modbus.response.ReadHoldingRegistersResponse;
-import com.github.zzxt0019.codec.modbus.response.ReadInputRegistersResponse;
+import com.github.zzxt0019.codec.modbus.response.*;
 import com.github.zzxt0019.modbus.core.ModbusConsumer;
 import com.github.zzxt0019.modbus.core.ModbusFunction;
 import lombok.Setter;
@@ -28,13 +25,15 @@ public class ServerFactory {
         private ModbusConsumer<WriteSingleRegisterRequest> writeSingleRegister;
         private ModbusConsumer<WriteMultipleCoilsRequest> writeMultipleCoils;
         private ModbusConsumer<WriteMultipleRegistersRequest> writeMultipleRegisters;
+        private ModbusConsumer<MaskWriteRegisterRequest> maskWriteRegister;
+        private ModbusFunction<ReadWriteMultipleRegistersRequest, ReadWriteMultipleRegistersResponse> readWriteMultipleRegisters;
 
         private Builder(int port) {
             this.port = port;
         }
 
         public Server build() {
-            return new Server(port, readCoils, readDiscreteInputs, readHoldingRegisters, readInputRegisters, writeSingleCoil, writeSingleRegister, writeMultipleCoils, writeMultipleRegisters);
+            return new Server(port, readCoils, readDiscreteInputs, readHoldingRegisters, readInputRegisters, writeSingleCoil, writeSingleRegister, writeMultipleCoils, writeMultipleRegisters, maskWriteRegister, readWriteMultipleRegisters);
         }
     }
 }
