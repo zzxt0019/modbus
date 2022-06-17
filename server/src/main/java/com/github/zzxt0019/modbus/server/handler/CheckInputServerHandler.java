@@ -78,6 +78,21 @@ public class CheckInputServerHandler extends ChannelInboundHandlerAdapter {
                     }
                 }
                 break;
+                case MaskWriteRegister: {
+                    MaskWriteRegisterRequest request = (MaskWriteRegisterRequest) msg;
+                    super.channelRead(ctx, request);
+                    return;
+                }
+//                break;
+                case ReadWriteMultipleRegisters: {
+                    ReadWriteMultipleRegistersRequest request = (ReadWriteMultipleRegistersRequest) msg;
+                    if (0x0001 <= request.getReadQuantity() && request.getReadQuantity() <= 0x007D
+                            && 0x0001 <= request.getWriteQuantity() && request.getWriteQuantity() <= 0x0079) {
+                        super.channelRead(ctx, request);
+                        return;
+                    }
+                }
+                break;
                 default: {
                     // FunctionCode NotFound
                     ErrorResponse errorResponse = new ErrorResponse(ExceptionCode.FunctionCode);

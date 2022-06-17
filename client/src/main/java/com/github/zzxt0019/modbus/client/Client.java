@@ -50,16 +50,6 @@ public class Client {
                 .handler(new ChannelInitializer<NioSocketChannel>() {
                     @Override
                     protected void initChannel(NioSocketChannel ch) throws Exception {
-                        ch.pipeline().addLast(new ChannelOutboundHandlerAdapter() {
-                            @Override
-                            public void write(ChannelHandlerContext ctx, Object msg, ChannelPromise promise) throws Exception {
-                                if (msg instanceof ByteBuf) {
-                                    System.out.println(ByteBufUtil.prettyHexDump((ByteBuf) msg));
-
-                                }
-                                super.write(ctx, msg, promise);
-                            }
-                        });
                         ch.pipeline().addLast(headLengthDecoder);
                         ch.pipeline().addLast(messageClientCodec);
                         ch.pipeline().addLast(readCoilsClientHandler);
