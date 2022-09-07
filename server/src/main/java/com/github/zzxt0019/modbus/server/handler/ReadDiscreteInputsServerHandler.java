@@ -1,8 +1,8 @@
 package com.github.zzxt0019.modbus.server.handler;
 
 import com.github.zzxt0019.modbus.core.ModbusFunction;
-import com.github.zzxt0019.codec.modbus.request.ReadDiscreteInputsRequest;
-import com.github.zzxt0019.codec.modbus.response.ReadDiscreteInputsResponse;
+import com.github.zzxt0019.modbus.core.request.ReadDiscreteInputsRequest;
+import com.github.zzxt0019.modbus.core.response.ReadDiscreteInputsResponse;
 import lombok.NoArgsConstructor;
 
 @NoArgsConstructor

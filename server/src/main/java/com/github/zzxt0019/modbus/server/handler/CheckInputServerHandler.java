@@ -1,11 +1,11 @@
 package com.github.zzxt0019.modbus.server.handler;
 
-import com.github.zzxt0019.codec.modbus.ModbusMessage;
-import com.github.zzxt0019.codec.modbus.enums.ExceptionCode;
-import com.github.zzxt0019.codec.modbus.enums.FunctionCode;
-import com.github.zzxt0019.codec.modbus.enums.SingleCoil;
-import com.github.zzxt0019.codec.modbus.errorres.ErrorResponse;
-import com.github.zzxt0019.codec.modbus.request.*;
+import com.github.zzxt0019.modbus.core.ModbusMessage;
+import com.github.zzxt0019.modbus.core.enums.ExceptionCode;
+import com.github.zzxt0019.modbus.core.enums.FunctionCode;
+import com.github.zzxt0019.modbus.core.enums.SingleCoil;
+import com.github.zzxt0019.modbus.core.errorres.ErrorResponse;
+import com.github.zzxt0019.modbus.core.request.*;
 import io.netty.channel.ChannelHandler;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;

@@ -1,8 +1,8 @@
 package com.github.zzxt0019.modbus.server.handler;
 
 import com.github.zzxt0019.modbus.core.ModbusFunction;
-import com.github.zzxt0019.codec.modbus.request.ReadHoldingRegistersRequest;
-import com.github.zzxt0019.codec.modbus.response.ReadHoldingRegistersResponse;
+import com.github.zzxt0019.modbus.core.request.ReadHoldingRegistersRequest;
+import com.github.zzxt0019.modbus.core.response.ReadHoldingRegistersResponse;
 import lombok.NoArgsConstructor;
 
 @NoArgsConstructor

@@ -1,7 +1,7 @@
 package com.github.zzxt0019.modbus.server.handler;
 
-import com.github.zzxt0019.codec.modbus.request.MaskWriteRegisterRequest;
-import com.github.zzxt0019.codec.modbus.response.MaskWriteRegisterResponse;
+import com.github.zzxt0019.modbus.core.request.MaskWriteRegisterRequest;
+import com.github.zzxt0019.modbus.core.response.MaskWriteRegisterResponse;
 import com.github.zzxt0019.modbus.core.ModbusConsumer;
 import lombok.NoArgsConstructor;
 

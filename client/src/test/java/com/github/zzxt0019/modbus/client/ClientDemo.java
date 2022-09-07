@@ -1,7 +1,7 @@
 package com.github.zzxt0019.modbus.client;
 
-import com.github.zzxt0019.codec.modbus.request.*;
-import com.github.zzxt0019.modbus.client.handler.MaskWriteRegisterClientHandler;
+import com.github.zzxt0019.modbus.core.request.ReadHoldingRegistersRequest;
+import com.github.zzxt0019.modbus.core.response.ReadHoldingRegistersResponse;
 import com.github.zzxt0019.modbus.core.ModbusException;
 
 public class ClientDemo {
@@ -19,19 +19,24 @@ public class ClientDemo {
 //ReadHoldingRegistersResponse(value=[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 123, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0])            Thread.sleep(100);
 //ReadHoldingRegistersResponse(value=[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 123, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0])
 //            client.sendSync(new WriteMultipleCoilsRequest(3, new boolean[]{true, false, true}));
-//            client.sendAsync(new ReadCoilsRequest(100, 10)).thenAccept(System.out::println);
-//            client.sendAsync(new ReadCoilsRequest(100, 10)).thenAccept(System.out::println);
-//            client.sendAsync(new ReadCoilsRequest(100, 10)).thenAccept(System.out::println);
+            client.sendAsync(new com.github.zzxt0019.modbus.core.request.ReadCoilsRequest(100, 10)).thenAccept(System.out::println);
+            client.sendAsync(new com.github.zzxt0019.modbus.core.request.ReadCoilsRequest(100, 10)).thenAccept(System.out::println);
+            client.sendAsync(new com.github.zzxt0019.modbus.core.request.ReadCoilsRequest(100, 10)).thenAccept(System.out::println);
 //            System.out.println(client.sendSync(new ReadCoilsRequest(100, 500)));
 //           client.sendSync(new ReadWriteMultipleRegistersRequest(10, 10, 10,
 //                    new byte[]{0, 11, 0, 22, 0, 33, 0, 44, 0, 55, 0, 66, 0, 77, 0, 88, 0, 99, 0, 100}));
-            client.sendSync(new WriteSingleRegisterRequest(9, (short)123));
-            client.sendSync(new WriteMultipleRegistersRequest(8, new byte[]{3, 0}));
-            client.sendSync(new WriteSingleRegisterRequest(7, (short) 256));
-            client.sendSync(new WriteSingleRegisterRequest(5, (short) 0x12));
-            client.sendSync(new MaskWriteRegisterRequest(5, (short) 0xf2, (short) 0x25));
-//            client.sendSync(new MaskWriteRegisterRequest(7, (short) 10, (short) 11));
-            System.out.println(client.sendSync(new ReadHoldingRegistersRequest(1, 19)));
+            ReadHoldingRegistersResponse readHoldingRegistersResponse = client.sendSync(new ReadHoldingRegistersRequest(0, 100));
+            System.out.println(readHoldingRegistersResponse);
+//            for (int i = 0; i < 100000; i++) {
+//                client.sendSync(new WriteSingleRegisterRequest(i, (short) i));
+//            }
+//            client.sendSync(new WriteSingleRegisterRequest(9, (short)123));
+//            client.sendSync(new WriteMultipleRegistersRequest(8, new byte[]{3, 0}));
+//            client.sendSync(new WriteSingleRegisterRequest(7, (short) 256));
+//            client.sendSync(new WriteSingleRegisterRequest(5, (short) 0x12));
+//            client.sendSync(new MaskWriteRegisterRequest(5, (short) 0xf2, (short) 0x25));
+////            client.sendSync(new MaskWriteRegisterRequest(7, (short) 10, (short) 11));
+//            System.out.println(client.sendSync(new ReadHoldingRegistersRequest(1, 19)));
 //                .exceptionally(new Function<Throwable, Void>() {
 //                    @Override
 //                    public Void apply(Throwable throwable) {

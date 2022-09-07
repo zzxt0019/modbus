@@ -1,14 +1,12 @@
 package com.github.zzxt0019.modbus.client;
 
-import com.github.zzxt0019.codec.modbus.request.ModbusRequest;
-import com.github.zzxt0019.codec.modbus.response.ModbusResponse;
+import com.github.zzxt0019.modbus.core.request.ModbusRequest;
+import com.github.zzxt0019.modbus.core.response.ModbusResponse;
 import com.github.zzxt0019.modbus.client.handler.*;
 import com.github.zzxt0019.modbus.core.ModbusException;
 import com.github.zzxt0019.netty.decoder.HeadLengthDecoder;
 import com.github.zzxt0019.netty.transfer.IntTransfer;
 import io.netty.bootstrap.Bootstrap;
-import io.netty.buffer.ByteBuf;
-import io.netty.buffer.ByteBufUtil;
 import io.netty.channel.*;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.nio.NioSocketChannel;

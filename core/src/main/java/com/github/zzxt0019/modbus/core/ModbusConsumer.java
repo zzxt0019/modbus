@@ -1,6 +1,6 @@
 package com.github.zzxt0019.modbus.core;
 
-import com.github.zzxt0019.codec.modbus.request.ModbusRequest;
+import com.github.zzxt0019.modbus.core.request.ModbusRequest;
 
 @FunctionalInterface
 public interface ModbusConsumer<REQ extends ModbusRequest<REQ, ?>> {

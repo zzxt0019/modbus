@@ -1,7 +1,7 @@
 package com.github.zzxt0019.modbus.server;
 
-import com.github.zzxt0019.codec.modbus.response.*;
 import com.github.zzxt0019.modbus.core.function.*;
+import com.github.zzxt0019.modbus.core.response.*;
 import lombok.Setter;
 import lombok.experimental.Accessors;
 

@@ -1,8 +1,8 @@
 package com.github.zzxt0019.modbus.server.handler;
 
 import com.github.zzxt0019.modbus.core.ModbusConsumer;
-import com.github.zzxt0019.codec.modbus.request.WriteSingleCoilRequest;
-import com.github.zzxt0019.codec.modbus.response.WriteSingleCoilResponse;
+import com.github.zzxt0019.modbus.core.request.WriteSingleCoilRequest;
+import com.github.zzxt0019.modbus.core.response.WriteSingleCoilResponse;
 import lombok.NoArgsConstructor;
 
 @NoArgsConstructor

@@ -1,8 +1,8 @@
 package com.github.zzxt0019.modbus.server.handler;
 
 import com.github.zzxt0019.modbus.core.ModbusConsumer;
-import com.github.zzxt0019.codec.modbus.request.WriteMultipleCoilsRequest;
-import com.github.zzxt0019.codec.modbus.response.WriteMultipleCoilsResponse;
+import com.github.zzxt0019.modbus.core.request.WriteMultipleCoilsRequest;
+import com.github.zzxt0019.modbus.core.response.WriteMultipleCoilsResponse;
 import lombok.NoArgsConstructor;
 
 @NoArgsConstructor

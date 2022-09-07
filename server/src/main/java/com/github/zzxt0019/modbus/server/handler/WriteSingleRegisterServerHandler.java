@@ -1,8 +1,8 @@
 package com.github.zzxt0019.modbus.server.handler;
 
 import com.github.zzxt0019.modbus.core.ModbusConsumer;
-import com.github.zzxt0019.codec.modbus.request.WriteSingleRegisterRequest;
-import com.github.zzxt0019.codec.modbus.response.WriteSingleRegisterResponse;
+import com.github.zzxt0019.modbus.core.request.WriteSingleRegisterRequest;
+import com.github.zzxt0019.modbus.core.response.WriteSingleRegisterResponse;
 import lombok.NoArgsConstructor;
 
 @NoArgsConstructor

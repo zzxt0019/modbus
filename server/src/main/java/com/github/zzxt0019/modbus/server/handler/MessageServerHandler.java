@@ -2,11 +2,11 @@ package com.github.zzxt0019.modbus.server.handler;
 
 import com.github.zzxt0019.modbus.core.ModbusException;
 import com.github.zzxt0019.modbus.core.ModbusFunction;
-import com.github.zzxt0019.codec.modbus.enums.ExceptionCode;
-import com.github.zzxt0019.codec.modbus.enums.FunctionCode;
-import com.github.zzxt0019.codec.modbus.errorres.ErrorResponse;
-import com.github.zzxt0019.codec.modbus.request.ModbusRequest;
-import com.github.zzxt0019.codec.modbus.response.ModbusResponse;
+import com.github.zzxt0019.modbus.core.enums.ExceptionCode;
+import com.github.zzxt0019.modbus.core.enums.FunctionCode;
+import com.github.zzxt0019.modbus.core.errorres.ErrorResponse;
+import com.github.zzxt0019.modbus.core.request.ModbusRequest;
+import com.github.zzxt0019.modbus.core.response.ModbusResponse;
 import io.netty.channel.ChannelHandler;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;

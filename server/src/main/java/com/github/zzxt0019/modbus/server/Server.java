@@ -1,9 +1,9 @@
 package com.github.zzxt0019.modbus.server;
 
-import com.github.zzxt0019.codec.modbus.request.*;
-import com.github.zzxt0019.codec.modbus.response.*;
 import com.github.zzxt0019.modbus.core.ModbusConsumer;
 import com.github.zzxt0019.modbus.core.ModbusFunction;
+import com.github.zzxt0019.modbus.core.request.*;
+import com.github.zzxt0019.modbus.core.response.*;
 import com.github.zzxt0019.modbus.server.handler.*;
 import com.github.zzxt0019.netty.decoder.HeadLengthDecoder;
 import com.github.zzxt0019.netty.transfer.IntTransfer;

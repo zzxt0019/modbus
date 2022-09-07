@@ -1,6 +1,6 @@
 package com.github.zzxt0019.modbus.core;
 
-import com.github.zzxt0019.codec.modbus.errorres.ErrorResponse;
+import com.github.zzxt0019.modbus.core.errorres.ErrorResponse;
 import lombok.Data;
 
 @Data

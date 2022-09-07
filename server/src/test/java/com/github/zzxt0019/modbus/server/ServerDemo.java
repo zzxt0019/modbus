@@ -1,9 +1,9 @@
 package com.github.zzxt0019.modbus.server;
 
-import com.github.zzxt0019.codec.modbus.response.ReadCoilsResponse;
-import com.github.zzxt0019.codec.modbus.response.ReadDiscreteInputsResponse;
-import com.github.zzxt0019.codec.modbus.response.ReadHoldingRegistersResponse;
-import com.github.zzxt0019.codec.modbus.response.ReadInputRegistersResponse;
+import com.github.zzxt0019.modbus.core.response.ReadCoilsResponse;
+import com.github.zzxt0019.modbus.core.response.ReadDiscreteInputsResponse;
+import com.github.zzxt0019.modbus.core.response.ReadHoldingRegistersResponse;
+import com.github.zzxt0019.modbus.core.response.ReadInputRegistersResponse;
 
 import java.util.HashMap;
 import java.util.Map;

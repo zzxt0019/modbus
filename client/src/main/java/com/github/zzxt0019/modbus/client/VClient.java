@@ -1,9 +1,9 @@
 package com.github.zzxt0019.modbus.client;
 
-import com.github.zzxt0019.codec.modbus.ModbusMessage;
-import com.github.zzxt0019.codec.modbus.errorres.ErrorResponse;
-import com.github.zzxt0019.codec.modbus.request.ModbusRequest;
-import com.github.zzxt0019.codec.modbus.response.ModbusResponse;
+import com.github.zzxt0019.modbus.core.ModbusMessage;
+import com.github.zzxt0019.modbus.core.errorres.ErrorResponse;
+import com.github.zzxt0019.modbus.core.request.ModbusRequest;
+import com.github.zzxt0019.modbus.core.response.ModbusResponse;
 import com.github.zzxt0019.modbus.core.ExceptionCause;
 import com.github.zzxt0019.modbus.core.ModbusException;
 import io.netty.channel.Channel;

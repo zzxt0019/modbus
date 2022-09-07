@@ -1,6 +1,6 @@
 package com.github.zzxt0019.modbus.client.handler;
 
-import com.github.zzxt0019.codec.modbus.ModbusMessage;
+import com.github.zzxt0019.modbus.core.ModbusMessage;
 import io.netty.channel.ChannelHandler;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;

@@ -1,9 +1,9 @@
 package com.github.zzxt0019.modbus.client.handler;
 
-import com.github.zzxt0019.codec.modbus.ModbusDecoder;
-import com.github.zzxt0019.codec.modbus.ModbusEncoder;
-import com.github.zzxt0019.codec.modbus.ModbusMessage;
-import com.github.zzxt0019.codec.modbus.request.ModbusRequest;
+import com.github.zzxt0019.modbus.core.ModbusDecoder;
+import com.github.zzxt0019.modbus.core.ModbusEncoder;
+import com.github.zzxt0019.modbus.core.ModbusMessage;
+import com.github.zzxt0019.modbus.core.request.ModbusRequest;
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandler;
 import io.netty.channel.ChannelHandlerContext;
