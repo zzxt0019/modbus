@@ -1,11 +1,9 @@
 package com.github.zzxt0019.modbus.client;
 
-import com.github.zzxt0019.modbus.core.request.ModbusRequest;
-import com.github.zzxt0019.modbus.core.response.ModbusResponse;
 import com.github.zzxt0019.modbus.client.handler.*;
 import com.github.zzxt0019.modbus.core.ModbusException;
-import com.github.zzxt0019.netty.decoder.HeadLengthDecoder;
-import com.github.zzxt0019.netty.transfer.IntTransfer;
+import com.github.zzxt0019.modbus.core.request.ModbusRequest;
+import com.github.zzxt0019.modbus.core.response.ModbusResponse;
 import io.netty.bootstrap.Bootstrap;
 import io.netty.channel.*;
 import io.netty.channel.nio.NioEventLoopGroup;
@@ -25,11 +23,10 @@ public class Client {
     private Channel channel;
     private final ExecutorService executorService = Executors.newCachedThreadPool();
 
-    Client(String ip, int port, VClient vClient) {
+    Client(String ip, int port, VClient vClient, ChannelHandler decoder) {
         this.ip = ip;
         this.port = port;
         this.vClient = vClient;
-        HeadLengthDecoder headLengthDecoder = HeadLengthDecoder.builder(new Byte[]{null, null, 0, 0}, IntTransfer.buildDefault16()).build();
         MessageClientCodec messageClientCodec = new MessageClientCodec();
         ReadCoilsClientHandler readCoilsClientHandler = new ReadCoilsClientHandler();
         ReadDiscreteInputsClientHandler readDiscreteInputsClientHandler = new ReadDiscreteInputsClientHandler();
@@ -48,7 +45,9 @@ public class Client {
                 .handler(new ChannelInitializer<NioSocketChannel>() {
                     @Override
                     protected void initChannel(NioSocketChannel ch) throws Exception {
-                        ch.pipeline().addLast(headLengthDecoder);
+                        if (decoder != null) {
+                            ch.pipeline().addLast(decoder);
+                        }
                         ch.pipeline().addLast(messageClientCodec);
                         ch.pipeline().addLast(readCoilsClientHandler);
                         ch.pipeline().addLast(readDiscreteInputsClientHandler);
