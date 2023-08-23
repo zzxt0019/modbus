@@ -2,6 +2,7 @@ package com.github.zzxt0019.modbus.client;
 
 import com.github.zzxt0019.netty.decoder.HeadLengthDecoder;
 import com.github.zzxt0019.netty.transfer.IntTransfer;
+import io.netty.channel.ChannelHandler;
 import lombok.Setter;
 import lombok.experimental.Accessors;
 
@@ -13,17 +14,20 @@ public class ClientFactory {
     @Accessors(chain = true)
     @Setter
     public static class Builder {
-        private final String ip;
-        private int port = 502;
-        private VClient vClient = VClientFactory.builder().build();
-        private HeadLengthDecoder decoder = HeadLengthDecoder.builder(new Byte[]{null, null, 0, 0}, IntTransfer.buildDefault16()).build();
+        final String ip;
+        int port = 502;
+        VClient vClient = VClientFactory.builder().build();
+        ChannelHandler decoder = HeadLengthDecoder.builder(new Byte[]{null, null, 0, 0}, IntTransfer.buildDefault16()).build();
+        String logSuccess;
+        String logError;
+        String logEnd;
 
         private Builder(String ip) {
             this.ip = ip;
         }
 
         public Client build() {
-            return new Client(ip, port, vClient, decoder);
+            return new Client(this);
         }
     }
 }
