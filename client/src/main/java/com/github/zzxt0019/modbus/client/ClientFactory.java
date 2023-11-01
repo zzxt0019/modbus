@@ -18,9 +18,9 @@ public class ClientFactory {
         int port = 502;
         VClient vClient = VClientFactory.builder().build();
         ChannelHandler decoder = HeadLengthDecoder.builder(new Byte[]{null, null, 0, 0}, IntTransfer.buildDefault16()).build();
-        String logSuccess;
-        String logError;
-        String logEnd;
+        Runnable succeed;
+        Runnable errored;
+        Runnable ended;
 
         private Builder(String ip) {
             this.ip = ip;

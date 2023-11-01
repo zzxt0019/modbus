@@ -24,18 +24,18 @@ public class Client {
     private final int port;
     private final VClient vClient;
     private Channel channel;
-    private String logSuccess;
-    private String logError;
-    private String logEnd;
+    private final Runnable succeed;
+    private final Runnable errored;
+    private final Runnable ended;
     private final ExecutorService executorService = Executors.newCachedThreadPool();
 
     Client(ClientFactory.Builder builder) {
         this.ip = builder.ip;
         this.port = builder.port;
         this.vClient = builder.vClient;
-        this.logSuccess = builder.logSuccess;
-        this.logError = builder.logError;
-        this.logEnd = builder.logEnd;
+        this.succeed = builder.succeed;
+        this.errored = builder.errored;
+        this.ended = builder.ended;
         MessageClientCodec messageClientCodec = new MessageClientCodec();
         ReadCoilsClientHandler readCoilsClientHandler = new ReadCoilsClientHandler();
         ReadDiscreteInputsClientHandler readDiscreteInputsClientHandler = new ReadDiscreteInputsClientHandler();
@@ -78,20 +78,20 @@ public class Client {
         channel = bootstrap.connect(ip, port)
                 .addListener((ChannelFuture listener) -> {
                     if (!listener.isSuccess()) {
-                        if (logError != null) {
-                            System.out.println(logError);
+                        if (errored != null) {
+                            errored.run();
                         }
                     } else {
-                        if (logSuccess != null) {
-                            System.out.println(logSuccess);
+                        if (succeed != null) {
+                            succeed.run();
                         }
                     }
                 })
                 .channel();
         channel.closeFuture()
                 .addListener((ChannelFutureListener) future -> {
-                    if (logEnd != null) {
-                        System.out.println(logEnd);
+                    if (ended != null) {
+                        ended.run();
                     }
                     if (!group.isShuttingDown() && !group.isShutdown()) {
                         if (!executorService.awaitTermination(100, TimeUnit.MILLISECONDS)) {
