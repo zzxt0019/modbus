@@ -71,11 +71,10 @@ public class Client {
                         ch.pipeline().addLast(messageExceptionClientHandler);
                     }
                 });
-        connect();
     }
 
-    private void connect() {
-        channel = bootstrap.connect(ip, port)
+    public ChannelFuture connect() {
+        ChannelFuture channelFuture = bootstrap.connect(ip, port)
                 .addListener((ChannelFuture listener) -> {
                     if (!listener.isSuccess()) {
                         if (errored != null) {
@@ -86,7 +85,8 @@ public class Client {
                             succeed.run();
                         }
                     }
-                })
+                });
+        channel = channelFuture
                 .channel();
         channel.closeFuture()
                 .addListener((ChannelFutureListener) future -> {
@@ -99,10 +99,16 @@ public class Client {
                         }
                     }
                 });
+        return channelFuture;
     }
 
     public void close() {
         group.shutdownGracefully();
+        executorService.shutdown();
+    }
+
+    public boolean isConnected() {
+        return channel.isActive();
     }
 
     public <REQ extends ModbusRequest<REQ, RES>, RES extends ModbusResponse<REQ, RES>> CompletableFuture<RES> sendAsync(REQ request) throws ModbusException {
